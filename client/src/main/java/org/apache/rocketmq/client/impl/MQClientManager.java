@@ -46,6 +46,10 @@ public class MQClientManager {
 
     public MQClientInstance getAndCreateMQClientInstance(final ClientConfig clientConfig, RPCHook rpcHook) {
         String clientId = clientConfig.buildMQClientId();
+        /**
+         * 从本地缓存factoryTable中获取当前MQClientInstance
+         * 值得注意的是，在相同JVM进程中，生产者和消费者都默认在同一个MQClientInstance中
+         */
         MQClientInstance instance = this.factoryTable.get(clientId);
         if (null == instance) {
             instance =
