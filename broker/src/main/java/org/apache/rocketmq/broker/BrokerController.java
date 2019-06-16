@@ -31,6 +31,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.LockSupport;
+
 import org.apache.rocketmq.acl.AccessValidator;
 import org.apache.rocketmq.broker.client.ClientHousekeepingService;
 import org.apache.rocketmq.broker.client.ConsumerIdsChangeListener;
@@ -1100,5 +1102,21 @@ public class BrokerController {
     public BlockingQueue<Runnable> getEndTransactionThreadPoolQueue() {
         return endTransactionThreadPoolQueue;
 
+    }
+
+    public static void main(String[] args)
+    {
+//        Thread.interrupted();
+
+        Thread.currentThread().interrupt();
+
+        Thread.interrupted();
+
+        if (Thread.currentThread().isInterrupted()) {
+            System.out.println("test");
+            return;
+        }
+
+        System.out.println("1111");
     }
 }

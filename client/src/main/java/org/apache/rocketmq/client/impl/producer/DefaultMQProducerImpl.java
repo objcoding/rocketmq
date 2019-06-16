@@ -635,7 +635,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
                         log.warn(msg.toString());
                         throw e;
                     }
-                } else {
+                 } else {
                     break;
                 }
             }
@@ -685,8 +685,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
         if (null == topicPublishInfo || !topicPublishInfo.ok()) {
             this.topicPublishInfoTable.putIfAbsent(topic, new TopicPublishInfo());
             /**
-             * 生产者第一次发送消息（此时，Topic在NameServer中并不存在）：
-             * 因为第一次获取时候并不能从远端的NameServer上拉取下来并更新本地缓存变量—topicPublishInfoTable成功。
+             * 生产者第一次发送消息，topic在nameserver中并不存在
              */
             this.mQClientFactory.updateTopicRouteInfoFromNameServer(topic);
             topicPublishInfo = this.topicPublishInfoTable.get(topic);
